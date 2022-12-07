@@ -20,7 +20,7 @@ class MatakuliahController extends Controller
 	{
 		return response()->json([
 			'message' => 'Berhasil menampilkan mata kuliah',
-			'data' => Matakuliah::all()
+			'matakuliah' => Matakuliah::all()
 		]);
 	}
 }

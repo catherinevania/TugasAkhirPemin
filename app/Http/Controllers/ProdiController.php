@@ -20,7 +20,7 @@ class ProdiController extends Controller
 	{
 		return response()->json([
 			'message' => 'Berhasil menampilkan prodi',
-			'data' => Prodi::all()
+			'prodi' => Prodi::all()
 		]);
 	}
 }

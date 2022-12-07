@@ -60,22 +60,24 @@ class MahasiswaController extends Controller
 				'message' => 'Password salah',
 			], 400);
 		}
-
-		$mahasiswa->token = $this->jwt($mahasiswa); //
+		$token = $this->jwt($mahasiswa);
+		$mahasiswa->token = $token; //
 		$mahasiswa->save();
 
 		return response()->json([
 			'status' => 'Success',
 			'message' => 'Login berhasil',
-			'data' => [
-				'user' => $mahasiswa,
-			]
+			'token' => $token
 		], 200);
 	}
 
 	public function getAllMahasiswas()
 	{
-		return Mahasiswa::all();
+		return response()->json([
+			'status' => 'Success',	
+			'message' => 'grabbed all mahasiswa',
+			'mahasiswa' => Mahasiswa::with("prodi")->get(),
+		], 200);
 	}
 
 	public function getByToken(Request $request)
@@ -84,7 +86,8 @@ class MahasiswaController extends Controller
 
 		return response()->json([
 			'status' => 'Success',
-			'message' => 'selamat datang ' . $mahasiswa->nama,
+			'message' => 'grabbed mahasiswa by token',
+			'mahasiswa' => $mahasiswa,
 		], 200);
 	}
 
